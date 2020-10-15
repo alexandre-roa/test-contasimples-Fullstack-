@@ -22,6 +22,12 @@ class FakeUsersRepository implements IUsersRepository {
     return findUser;
   }
 
+  public async findByCnpj(cnpj: number): Promise<User | undefined> {
+    const findUser = this.users.find(user => user.cnpj === cnpj);
+
+    return findUser;
+  }
+
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
 
