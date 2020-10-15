@@ -41,6 +41,9 @@ class User {
   @Column()
   bank_data: IBankData;
 
+  @Column()
+  balance: number;
+
   @CreateDateColumn()
   created_at: Date;
 

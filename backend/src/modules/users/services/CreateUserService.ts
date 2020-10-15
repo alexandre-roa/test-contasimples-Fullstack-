@@ -64,6 +64,8 @@ class CreateUserService {
       digit_account_number: 1,
     };
 
+    user.balance = 10000;
+
     await this.usersRepository.save(user);
 
     return user;
