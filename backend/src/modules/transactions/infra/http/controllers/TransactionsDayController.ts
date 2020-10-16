@@ -8,11 +8,11 @@ export default class ProviderDayAvailabilityController {
     const { user_id } = request.params;
     const { day, month, year } = request.query;
 
-    const listProviderDayAvailability = container.resolve(
+    const getTransactionDayService = container.resolve(
       GetTransactionDayService,
     );
 
-    const transactions = await listProviderDayAvailability.execute({
+    const transactions = await getTransactionDayService.execute({
       user_id,
       day: Number(day[0]),
       month: Number(month[0]),
