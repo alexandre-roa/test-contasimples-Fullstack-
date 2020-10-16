@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import GetTransactionDayService from '@modules/transactions/services/GetTransactionDayService';
 
-export default class ProviderDayAvailabilityController {
+export default class TransactionsDayController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { user_id } = request.params;
     const { day, month, year } = request.query;
