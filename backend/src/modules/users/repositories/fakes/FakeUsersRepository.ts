@@ -45,6 +45,16 @@ class FakeUsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  public async updateBalance(user_id: string, total: number): Promise<User> {
+    const user = this.users.find(
+      user => format.ObjectIDToId(user.id) === user_id,
+    );
+
+    user.balance = total;
+
+    return user;
+  }
 }
 
 export default FakeUsersRepository;

@@ -1,8 +1,10 @@
+import format from '@config/format';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import ITransactionsRepository from '@modules/transactions/repositories/ITransactionsRepository';
 
 import User from '../infra/typeorm/schemas/User';
 
@@ -64,7 +66,7 @@ class CreateUserService {
       digit_account_number: 1,
     };
 
-    user.balance = 10000;
+    user.balance = 0;
 
     await this.usersRepository.save(user);
 

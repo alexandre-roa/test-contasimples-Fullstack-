@@ -3,6 +3,7 @@ import {
   Column,
   ObjectIdColumn,
   ObjectID,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,6 +17,8 @@ interface IBankData {
 }
 
 import { Exclude } from 'class-transformer';
+
+import Transaction from '@modules/transactions/infra/typeorm/schemas/Transaction';
 
 @Entity('users')
 class User {
@@ -41,6 +44,10 @@ class User {
   @Column()
   bank_data: IBankData;
 
+  @OneToMany(() => Transaction, transaction => transaction.user)
+  transaction: Transaction;
+
+  @Exclude()
   @Column()
   balance: number;
 

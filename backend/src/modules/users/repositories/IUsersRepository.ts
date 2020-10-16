@@ -7,4 +7,5 @@ export default interface IUsersRepository {
   findByCnpj(cnpj: number): Promise<User | undefined>;
   create(data: ICreateUserDTO): Promise<User>;
   save(user: User): Promise<User>;
+  updateBalance(user_id: string, total: number): Promise<User>;
 }

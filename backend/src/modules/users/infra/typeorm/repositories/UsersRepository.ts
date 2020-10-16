@@ -45,6 +45,16 @@ class UsersRepository implements IUsersRepository {
   public async save(user: User): Promise<User> {
     return this.ormRepository.save(user);
   }
+
+  public async updateBalance(user_id: string, total: number): Promise<User> {
+    const user = await this.findById(user_id);
+
+    user.balance = total;
+
+    await this.ormRepository.save(user);
+
+    return user;
+  }
 }
 
 export default UsersRepository;
