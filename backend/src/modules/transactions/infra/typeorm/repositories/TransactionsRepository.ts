@@ -3,12 +3,16 @@ import {
   In,
   EntityRepository,
   MongoRepository,
+  Raw,
 } from 'typeorm';
 import Transaction from '@modules/transactions/infra/typeorm/schemas/Transaction';
+
+import ISODate from 'mongodb';
 
 import ITransactionsRepository from '@modules/transactions/repositories/ITransactionsRepository';
 import IBalance from '@modules/transactions/dtos/IBalanceDTO';
 import ICreateTransactionsDTO from '@modules/transactions/dtos/ICreateTransactionsDTO';
+import IFindAllInDayTransactionDTO from '@modules/transactions/dtos/IFindAllInDayTransactionDTO';
 
 @EntityRepository(Transaction)
 class TransactionsRepository implements ITransactionsRepository {
@@ -63,7 +67,9 @@ class TransactionsRepository implements ITransactionsRepository {
   }
 
   public async findAll(user_id: string): Promise<Transaction[]> {
-    const transactions = await this.ormRepository.find({ where: { user_id } });
+    const transactions = await this.ormRepository.find({
+      where: { user_id, transaction_date: new Date('2020-10-17') },
+    });
 
     return transactions;
   }
@@ -72,9 +78,30 @@ class TransactionsRepository implements ITransactionsRepository {
     user_id: string,
     transaction_id: string,
   ): Promise<Transaction[]> {
-    const transaction = await this.ormRepository.find({ where: { user_id } });
+    const transaction = await this.ormRepository.find({
+      where: { user_id },
+    });
 
     return transaction;
+  }
+
+  public async findAllInDayTransaction({
+    user_id,
+    day,
+    month,
+    year,
+  }: IFindAllInDayTransactionDTO): Promise<Transaction[]> {
+    const parsedDay = String(day).padStart(2, '0');
+    const parsedMonth = String(month).padStart(2, '0');
+
+    const transactions = await this.ormRepository.find({
+      where: {
+        user_id,
+        transaction_date: new Date(`${year}-${parsedMonth}-${parsedDay}`),
+      },
+    });
+
+    return transactions;
   }
 }
 

@@ -25,6 +25,7 @@ class CreateTransactionService {
     transaction_description,
     transaction_type,
     type,
+    transaction_date,
     user_id,
   }: Omit<ICreateTransactionsDTO, 'user'>): Promise<Transaction | null> {
     const user = await this.usersRepository.findById(user_id);
@@ -44,6 +45,7 @@ class CreateTransactionService {
       establishment,
       value,
       final_card,
+      transaction_date,
       transaction_description,
       transaction_type,
       type,

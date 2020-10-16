@@ -5,6 +5,7 @@ export default interface ICreateTransactionsDTO {
   type: 'credit' | 'debit';
   value: number;
   final_card: number;
+  transaction_date: Date;
   transaction_type: string;
   transaction_description: string;
   establishment: string;

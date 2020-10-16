@@ -39,6 +39,9 @@ class Transaction {
   @Column()
   establishment: string;
 
+  @Column('timestamp with time zone')
+  transaction_date: Date;
+
   @CreateDateColumn()
   created_at: Date;
 
