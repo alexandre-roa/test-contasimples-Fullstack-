@@ -1,10 +1,8 @@
-// index, show, create, update(Atualizar todos os dados, se for uma info fazer um novo controller), delete
-
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 
 import CreateTransactionService from '@modules/transactions/services/CreateTransactionService';
-import GetTransactionService from '@modules/transactions/services/GetTransactionService';
+import GetTransactionService from '@modules/transactions/services/GetAllTransactionService';
 
 export default class TransactionsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -36,11 +34,12 @@ export default class TransactionsController {
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
+    const { user_id } = request.params;
+
     const getTransactions = container.resolve(GetTransactionService);
 
-    const transactions = await getTransactions.execute();
-    const balance = await getTransactions.balance();
+    const transactions = await getTransactions.execute(user_id);
 
-    return response.json({ transactions, balance });
+    return response.json(transactions);
   }
 }

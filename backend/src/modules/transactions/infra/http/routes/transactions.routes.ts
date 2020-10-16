@@ -30,4 +30,14 @@ transactionsRouter.post(
   transactionsController.create,
 );
 
+transactionsRouter.get(
+  '/:user_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      user_id: Joi.string().id().required(),
+    },
+  }),
+  transactionsController.index,
+);
+
 export default transactionsRouter;

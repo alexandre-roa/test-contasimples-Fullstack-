@@ -5,23 +5,17 @@ import ITransactionsRepository from '../repositories/ITransactionsRepository';
 import Transaction from '../infra/typeorm/schemas/Transaction';
 
 @injectable()
-class GetTransactionService {
+class GetAllTransactionService {
   constructor(
     @inject('TransactionsRepository')
     private transactionsRepository: ITransactionsRepository,
   ) {}
 
-  public async execute(): Promise<Transaction[]> {
-    const transactions = await this.transactionsRepository.find();
+  public async execute(user_id: string): Promise<Transaction[]> {
+    const transactions = await this.transactionsRepository.findAll(user_id);
 
     return transactions;
   }
-
-  public async balance(): Promise<IBalance> {
-    const balance = await this.transactionsRepository.getBalance();
-
-    return balance;
-  }
 }
 
-export default GetTransactionService;
+export default GetAllTransactionService;
