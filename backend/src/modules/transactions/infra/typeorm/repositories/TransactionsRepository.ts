@@ -74,6 +74,17 @@ class TransactionsRepository implements ITransactionsRepository {
     return transactions;
   }
 
+  public async findByType(
+    user_id: string,
+    type: 'credit' | 'debit',
+  ): Promise<Transaction[]> {
+    const transactions = await this.ormRepository.find({
+      where: { user_id, type },
+    });
+
+    return transactions;
+  }
+
   public async findById(
     user_id: string,
     transaction_id: string,

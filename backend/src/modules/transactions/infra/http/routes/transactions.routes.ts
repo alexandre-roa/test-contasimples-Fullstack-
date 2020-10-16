@@ -3,11 +3,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import TransactionsController from '../controllers/TransactionsController';
 import TransactionsDayController from '../controllers/TransactionsDayController';
+import TransactionsTypeController from '../controllers/TransactionsTypeController';
+
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const transactionsRouter = Router();
 const transactionsController = new TransactionsController();
-const rransactionsDayController = new TransactionsDayController();
+const transactionsDayController = new TransactionsDayController();
+const transactionsTypeController = new TransactionsTypeController();
 
 transactionsRouter.use(ensureAuthenticated);
 
@@ -50,7 +53,17 @@ transactionsRouter.get(
       user_id: Joi.string().id().required(),
     },
   }),
-  rransactionsDayController.index,
+  transactionsDayController.index,
+);
+
+transactionsRouter.get(
+  '/:user_id/transactions-type',
+  celebrate({
+    [Segments.PARAMS]: {
+      user_id: Joi.string().id().required(),
+    },
+  }),
+  transactionsTypeController.index,
 );
 
 export default transactionsRouter;
