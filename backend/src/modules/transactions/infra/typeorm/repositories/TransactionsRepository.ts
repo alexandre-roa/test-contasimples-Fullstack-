@@ -68,7 +68,7 @@ class TransactionsRepository implements ITransactionsRepository {
 
   public async findAll(user_id: string): Promise<Transaction[]> {
     const transactions = await this.ormRepository.find({
-      where: { user_id, transaction_date: new Date('2020-10-17') },
+      where: { user_id },
     });
 
     return transactions;
