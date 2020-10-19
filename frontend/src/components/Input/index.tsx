@@ -14,12 +14,14 @@ import { Container, Error, Label } from './styles';
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   labelName: string;
+  containerStyle?: object;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
 const Input: React.FC<IInputProps> = ({
   name,
   icon: Icon,
+  containerStyle = {},
   labelName,
   ...rest
 }) => {
@@ -56,7 +58,12 @@ const Input: React.FC<IInputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container isErrored={!!error} isFocused={isFocused} isFielled={isFielled}>
+    <Container
+      style={containerStyle}
+      isErrored={!!error}
+      isFocused={isFocused}
+      isFielled={isFielled}
+    >
       {Icon && <Icon size={20} />}
       <Label
         labelIsFocused={labelIsFocused}
