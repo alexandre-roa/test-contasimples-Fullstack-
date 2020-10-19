@@ -5,6 +5,7 @@ import TransactionsController from '../controllers/TransactionsController';
 import TransactionsDayController from '../controllers/TransactionsDayController';
 import TransactionsTypeController from '../controllers/TransactionsTypeController';
 import TransactionByUserController from '../controllers/TransactionByUserController';
+import TransactionsByCardNumberController from '../controllers/TransactionsByCardNumberController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
@@ -13,6 +14,7 @@ const transactionsController = new TransactionsController();
 const transactionsDayController = new TransactionsDayController();
 const transactionsTypeController = new TransactionsTypeController();
 const transactionByUserController = new TransactionByUserController();
+const transactionsByCardNumberController = new TransactionsByCardNumberController();
 
 transactionsRouter.use(ensureAuthenticated);
 
@@ -76,6 +78,16 @@ transactionsRouter.get(
     },
   }),
   transactionByUserController.index,
+);
+
+transactionsRouter.get(
+  '/:user_id/card',
+  celebrate({
+    [Segments.PARAMS]: {
+      user_id: Joi.string().id().required(),
+    },
+  }),
+  transactionsByCardNumberController.index,
 );
 
 export default transactionsRouter;

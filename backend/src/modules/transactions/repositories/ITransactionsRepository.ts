@@ -12,4 +12,5 @@ export default interface ITransactionsRepository {
     data: IFindAllInDayTransactionDTO,
   ): Promise<Transaction[]>;
   findByType(user_id: string, type: string): Promise<Transaction[]>;
+  findByCard(user_id: string, final_card: number): Promise<Transaction[]>;
 }

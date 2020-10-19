@@ -111,6 +111,17 @@ class TransactionsRepository implements ITransactionsRepository {
 
     return transactions;
   }
+
+  public async findByCard(
+    user_id: string,
+    final_card: number,
+  ): Promise<Transaction[]> {
+    const transactions = await this.ormRepository.find({
+      where: { user_id, final_card },
+    });
+
+    return transactions;
+  }
 }
 
 export default TransactionsRepository;

@@ -8,14 +8,9 @@ export default class TransactionsTypeController {
     const { user_id } = request.params;
     const { type } = request.query;
 
-    const listProviderDayAvailability = container.resolve(
-      GetTransactionsByType,
-    );
+    const getTransactionsByType = container.resolve(GetTransactionsByType);
 
-    const transactions = await listProviderDayAvailability.execute(
-      user_id,
-      type[0],
-    );
+    const transactions = await getTransactionsByType.execute(user_id, type[0]);
 
     return response.json(transactions);
   }
