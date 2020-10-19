@@ -12,6 +12,9 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import ITransactionsRepository from '@modules/transactions/repositories/ITransactionsRepository';
 import TransactionsRepository from '@modules/transactions/infra/typeorm/repositories/TransactionsRepository';
 
+import ICardsRepository from '@modules/cards/repositories/ICardsRepository';
+import CardsRepository from '@modules/cards/infra/typeorm/repositories/CardsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -25,4 +28,9 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<ITransactionsRepository>(
   'TransactionsRepository',
   TransactionsRepository,
+);
+
+container.registerSingleton<ICardsRepository>(
+  'CardsRepository',
+  CardsRepository,
 );

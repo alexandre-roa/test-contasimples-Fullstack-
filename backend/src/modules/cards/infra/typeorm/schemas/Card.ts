@@ -6,54 +6,53 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
-
-interface IBankData {
-  bank_code: number;
-  bank_name: string;
-  bank_agency_number: number;
-  account_number: string;
-  digit_account_number: number;
-}
 
 import { Exclude } from 'class-transformer';
 
 import Transaction from '@modules/transactions/infra/typeorm/schemas/Transaction';
-import Card from '@modules/cards/infra/typeorm/schemas/Card';
+import User from '@modules/users/infra/typeorm/schemas/User';
 
-@Entity('users')
-class User {
+@Entity('cards')
+class Card {
   @ObjectIdColumn()
   id: ObjectID;
 
   @Column()
-  full_name: string;
+  label_name: string;
 
   @Column()
-  company_name: string;
+  card_limit: number;
 
   @Column()
-  cnpj: number;
+  card_number: number;
 
   @Column()
-  email: string;
+  final_card_number: number;
+
+  @Column()
+  due_date: Date;
+
+  @Column()
+  status: string;
 
   @Column()
   @Exclude()
-  password: string;
+  cvv: number;
 
-  @Column()
-  bank_data: IBankData;
+  @ObjectIdColumn()
+  user_id: string;
 
   @OneToMany(() => Transaction, transaction => transaction.user)
   transaction: Transaction;
 
-  @OneToMany(() => Card, transaction => transaction.user)
-  card: Card;
-
-  @Exclude()
-  @Column()
-  balance: number;
+  @ManyToOne(() => User, user => user.transaction, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;
@@ -62,4 +61,4 @@ class User {
   updated_at: Date;
 }
 
-export default User;
+export default Card;

@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/schemas/User';
+import Card from '@modules/cards/infra/typeorm/schemas/Card';
 
 @Entity('transactions')
 class Transaction {
@@ -53,6 +54,12 @@ class Transaction {
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @ManyToOne(() => Card, card => card.transaction, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  card: Card;
 }
 
 export default Transaction;
