@@ -37,6 +37,20 @@ interface IBalanceProps {
   balance: number;
 }
 
+interface ITransaction {
+  id: string;
+  title: string;
+  value: number;
+  type: 'credit' | 'debit';
+  user_id: string;
+  final_card: number;
+  transaction_type: string;
+  transaction_description: string;
+  establishment: string;
+  transaction_date: string;
+  created_at: string;
+}
+
 const AsideMenu: React.FC = () => {
   const { user } = useAuth();
   const [isAvailable, setIsAvailable] = useState(false);
@@ -56,7 +70,7 @@ const AsideMenu: React.FC = () => {
     }
 
     loadBalance();
-  }, []);
+  }, [user.id]);
 
   const toggleAvailable = useCallback(() => {
     setIsAvailable(state => !state);
