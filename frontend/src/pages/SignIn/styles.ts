@@ -54,6 +54,7 @@ export const AnimationContainer = styled.div`
 
   p {
     color: #666360;
+    margin-top: 32px;
   }
 
   form {
