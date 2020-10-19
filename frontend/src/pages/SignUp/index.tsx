@@ -1,10 +1,9 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   FiArrowLeft,
   FiMail,
   FiUser,
   FiLock,
-  FiTag,
   FiBriefcase,
   FiDisc,
 } from 'react-icons/fi';
@@ -19,7 +18,7 @@ import { useToast } from '../../hooks/toast';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.jpg';
+import logoImg from '../../assets/logo.png';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
