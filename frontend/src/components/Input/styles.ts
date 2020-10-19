@@ -15,9 +15,9 @@ interface ILabelProps {
 
 export const Container = styled.div<IContainerProps>`
   position: relative;
-  background: #f4ede8;
+  background: transparent;
   border-radius: 10px;
-  border: 2px solid #fff;
+  border: 2px solid #ddd;
   padding: 16px;
   width: 100%;
   color: #666360;
@@ -33,29 +33,30 @@ export const Container = styled.div<IContainerProps>`
     props.isErrored &&
     css`
       border-color: #c53030;
+      color: #c53030;
     `}
 
   ${props =>
     props.isFocused &&
     css`
-      color: #ff872c;
-      border-color: #ffb84d;
+      color: #45b54a;
+      border-color: #45b54a;
     `}
 
   ${props =>
     props.isFielled &&
     css`
-      color: #ff872c;
+      color: #45b54a;
     `}
 
   input {
     flex: 1;
     background: transparent;
     border: 0;
-    color: #c72828;
+    color: #000;
 
     &::placeholder {
-      color: #c53030;
+      color: #000;
     }
   }
 
