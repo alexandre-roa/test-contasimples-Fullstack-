@@ -72,7 +72,7 @@ transactionsRouter.get(
 );
 
 transactionsRouter.get(
-  '/:user_id/last-transactions',
+  '/:user_id/last-transaction/me',
   celebrate({
     [Segments.PARAMS]: {
       user_id: Joi.string().id().required(),
