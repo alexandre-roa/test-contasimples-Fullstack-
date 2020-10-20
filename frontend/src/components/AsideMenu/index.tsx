@@ -110,7 +110,7 @@ const AsideMenu: React.FC = () => {
       </Balance>
       <Menu>
         <MenuOptions name="Início" to="/" icon={FiHome} />
-        <MenuOptions name="Cartões" to="/" icon={FiCreditCard} />
+        <MenuOptions name="Cartões" to="/credit-card" icon={FiCreditCard} />
       </Menu>
     </Container>
   );
