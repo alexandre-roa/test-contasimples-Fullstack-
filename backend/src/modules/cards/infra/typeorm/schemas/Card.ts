@@ -46,7 +46,7 @@ class Card {
   user_id: string;
 
   @OneToMany(() => Transaction, transaction => transaction.user)
-  transaction: Transaction;
+  transactions: Transaction[];
 
   @ManyToOne(() => User, user => user.transaction, {
     eager: true,

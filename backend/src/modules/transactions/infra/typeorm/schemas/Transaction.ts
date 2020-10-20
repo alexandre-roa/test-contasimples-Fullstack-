@@ -28,6 +28,9 @@ class Transaction {
   @ObjectIdColumn()
   user_id: string;
 
+  @ObjectIdColumn()
+  card_id: string;
+
   @Column()
   final_card: number;
 
@@ -55,10 +58,10 @@ class Transaction {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Card, card => card.transaction, {
+  @ManyToOne(() => Card, card => card.transactions, {
     eager: true,
   })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'card_id' })
   card: Card;
 }
 
