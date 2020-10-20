@@ -1,24 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  FiBell,
-  FiDollarSign,
-  FiHome,
-  FiEyeOff,
-  FiAlignCenter,
-  FiFileText,
-  FiCreditCard,
-  FiCheckSquare,
-  FiBarChart2,
-  FiMaximize2,
-  FiUsers,
-  FiCalendar,
-  FiClipboard,
-  FiList,
-  FiPhone,
-  FiTag,
-  FiEye,
-} from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { FiBell, FiHome, FiEyeOff, FiCreditCard, FiEye } from 'react-icons/fi';
 
 import formatValue from '../../utils/formatValue';
 
@@ -79,7 +62,9 @@ const AsideMenu: React.FC = () => {
   return (
     <Container>
       <Header>
-        <img src={logoImg} alt="Conta Simples" />
+        <Link to="/">
+          <img src={logoImg} alt="Conta Simples" />
+        </Link>
         <span>
           <FiBell size={25} />
         </span>

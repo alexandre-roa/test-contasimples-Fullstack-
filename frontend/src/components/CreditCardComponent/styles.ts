@@ -7,9 +7,9 @@ export const Container = styled.button`
   flex-direction: column;
   justify-content: flex-start;
   background: #383838;
-  height: 20vh;
+  min-height: 200px;
   border-radius: 10px;
-  width: 18vw;
+  min-width: 360px;
   border: 0;
   color: #fff;
   font-weight: 500;
@@ -25,8 +25,8 @@ export const Container = styled.button`
   }
 
   img {
-    width: 8vw;
-    height: 4vh;
+    width: 100px;
+    height: 30px;
     align-self: flex-start;
     margin: 16px 16px;
   }
