@@ -82,10 +82,11 @@ transactionsRouter.get(
 );
 
 transactionsRouter.get(
-  '/:user_id/card',
+  '/:user_id/bycard/:final_card',
   celebrate({
     [Segments.PARAMS]: {
       user_id: Joi.string().id().required(),
+      final_card: Joi.number().id().required(),
     },
   }),
   transactionsByCardNumberController.index,

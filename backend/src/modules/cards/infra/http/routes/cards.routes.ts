@@ -41,12 +41,10 @@ usersRouter.get(
 );
 
 usersRouter.get(
-  '/:user_id/card-number',
+  '/:user_id/:card_number',
   celebrate({
     [Segments.PARAMS]: {
       user_id: Joi.string().id().required(),
-    },
-    [Segments.QUERY]: {
       card_number: Joi.number().required(),
     },
   }),

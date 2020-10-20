@@ -32,8 +32,6 @@ class CreateTransactionService {
       (user_id = format.ObjectIDToId(user.id)),
     );
 
-    // const transactions = await this.transactionsRepository.findByCard(user_id);
-
     const cardsWithTransactions = Promise.all(
       cards.map(async card => ({
         ...card,

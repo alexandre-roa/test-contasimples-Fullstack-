@@ -5,8 +5,7 @@ import ListOneCardService from '@modules/cards/services/ListOneCardService';
 
 export default class TransactionsController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { user_id } = request.params;
-    const { card_number } = request.query;
+    const { user_id, card_number } = request.params;
 
     const getCard = container.resolve(ListOneCardService);
 

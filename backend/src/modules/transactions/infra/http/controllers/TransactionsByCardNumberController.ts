@@ -5,8 +5,8 @@ import GetTransactionsByCardNumberService from '@modules/transactions/services/G
 
 export default class TransactionsTypeController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { user_id } = request.params;
-    const { final_card } = request.query;
+    const { user_id, final_card } = request.params;
+    const {} = request.query;
 
     const getTransactionsByCardNumberService = container.resolve(
       GetTransactionsByCardNumberService,
