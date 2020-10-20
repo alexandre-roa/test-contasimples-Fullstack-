@@ -23,12 +23,21 @@ export const TableContainer = styled.section`
     border-spacing: 0 8px;
 
     th {
-      color: #969cb3;
+      color: #0dc949;
       font-weight: normal;
       padding: 20px 32px;
       text-align: left;
       font-size: 16px;
       line-height: 24px;
+      background: #f5f5f5;
+
+      &.first {
+        border-radius: 30px 0px 0px 0px;
+      }
+
+      &.last {
+        border-radius: 0px 30px 0px 0px;
+      }
     }
 
     td {

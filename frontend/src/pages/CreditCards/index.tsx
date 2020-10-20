@@ -105,11 +105,11 @@ const CreditCards: React.FC = () => {
           <table>
             <thead>
               <tr>
-                <th>Título</th>
+                <th className="first">Título</th>
                 <th>Preço</th>
                 <th>Categoria</th>
                 <th>Cartão</th>
-                <th>Data</th>
+                <th className="last">Data</th>
               </tr>
             </thead>
 
