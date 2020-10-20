@@ -17,7 +17,7 @@ import {
   TableContainer,
 } from './styles';
 
-interface ITransaction {
+export interface ITransaction {
   id: string;
   title: string;
   value: number;
@@ -33,26 +33,6 @@ interface ITransaction {
   created_at: string;
 }
 
-interface ICard {
-  id: string;
-  label_name: string;
-  card_limit: number;
-  card_number: number;
-  final_card_number: number;
-  due_date: Date;
-  status: string;
-  cvv: number;
-  user_id: string;
-  created_at: string;
-  transactions: ITransaction[];
-}
-
-interface ITypeTransactions {
-  title: string;
-  value: number;
-  type: string;
-}
-
 interface IBankData {
   user_id: string;
   user: string;
@@ -63,14 +43,18 @@ interface IBankData {
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const [cards, setCards] = useState<ICard[]>([]);
-  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+  const [transactions, setTransactions] = useState<ITransaction[]>([
+    {} as ITransaction,
+  ]);
   const [creditTransactions, setCreditTransactions] = useState<string>('');
   const [debitTransactions, setDebitTransactions] = useState<string>('');
+  const [lastTransaction, setLastTransaction] = useState<ITransaction>(
+    {} as ITransaction,
+  );
   const [bankData, setBankData] = useState<IBankData>({} as IBankData);
 
   useEffect(() => {
-    async function loadCreditTransactions(): Promise<void> {
+    async function loadTransactions(): Promise<void> {
       try {
         const response = await api.get(`transactions/${user.id}`);
 
@@ -79,7 +63,7 @@ const Dashboard: React.FC = () => {
         console.log(err);
       }
     }
-    loadCreditTransactions();
+    loadTransactions();
   }, []);
 
   useEffect(() => {
@@ -93,6 +77,22 @@ const Dashboard: React.FC = () => {
       }
     }
     loadBankData();
+  }, []);
+
+  useEffect(() => {
+    async function loadLastTransaction() {
+      const response = await api.get(
+        `transactions/${user.id}/last-transaction/me`,
+      );
+
+      setLastTransaction(response.data);
+
+      setLastTransaction(state => ({
+        ...state,
+        formattedValue: formatValue(state.value),
+      }));
+    }
+    loadLastTransaction();
   }, []);
 
   useMemo(async () => {
@@ -163,16 +163,31 @@ const Dashboard: React.FC = () => {
             <h1 data-testid="balance-outcome">{debitTransactions}</h1>
             <img src={debit} alt="Outcome" />
           </Card>
+
+          <Card total>
+            <header>
+              <p>Ultima transacao:</p>
+              <h2>{lastTransaction.title}</h2>
+            </header>
+            <h1 data-testid="balance-outcome">
+              {lastTransaction.formattedValue}
+            </h1>
+            <img
+              src={lastTransaction.type === 'credit' ? credit : debit}
+              alt={lastTransaction.type}
+            />
+          </Card>
         </CardContainer>
 
         <TableContainer>
           <table>
             <thead>
               <tr>
-                <th>Título</th>
+                <th className="first">Título</th>
                 <th>Preço</th>
                 <th>Categoria</th>
-                <th>Data</th>
+                <th>Cartão</th>
+                <th className="last">Data</th>
               </tr>
             </thead>
 
@@ -189,8 +204,8 @@ const Dashboard: React.FC = () => {
                         - {transaction.formattedValue}
                       </td>
                     )}
-
                     <td>{transaction.transaction_description}</td>
+                    <td>{transaction.final_card}</td>
                     <td>{transaction.formattedDate}</td>
                     <td></td>
                   </tr>

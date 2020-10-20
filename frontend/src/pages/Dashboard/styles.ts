@@ -11,8 +11,9 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  padding: 24px 24px;
   display: flex;
-  flex: 1;
+  margin-right: 24px;
   flex-direction: column;
 `;
 
@@ -25,13 +26,15 @@ export const CardContainer = styled.section`
   display: flex;
   padding: 32px 42px;
   height: 20vh;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Card = styled.button`
-  align-items: center;
   display: flex;
-  flex-direction: ${({ total }: CardProps): string =>
-    total ? 'column' : 'row'}row;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   background: ${({ total }: CardProps): string => (total ? '#0dc949' : '#fff')};
   padding: 22px 32px;
   border-radius: 5px;
@@ -47,13 +50,13 @@ export const Card = styled.button`
         ? '0px 8px 24px 0px rgba(232,63,91,0.5)'
         : '0px 8px 24px 0px rgba(13, 201, 73, 0.5)'};
 
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 
   header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     p {
       font-size: 16px;
@@ -67,6 +70,14 @@ export const Card = styled.button`
     line-height: 54px;
     padding: 0 24px;
   }
+
+  h2 {
+    margin-top: 14px;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 24px;
+    padding: 0 24px;
+  }
 `;
 
 export const TableContainer = styled.section`
@@ -77,12 +88,21 @@ export const TableContainer = styled.section`
     border-spacing: 0 8px;
 
     th {
-      color: #969cb3;
+      color: #0dc949;
       font-weight: normal;
       padding: 20px 32px;
       text-align: left;
       font-size: 16px;
       line-height: 24px;
+      background: #f5f5f5;
+
+      &.first {
+        border-radius: 30px 0px 0px 0px;
+      }
+
+      &.last {
+        border-radius: 0px 30px 0px 0px;
+      }
     }
 
     td {
