@@ -151,14 +151,14 @@ const Dashboard: React.FC = () => {
         <CardContainer>
           <Card onClick={() => handleTransactionChange('credit')}>
             <header>
-              <p>Entradas</p>
+              <p>Crédito</p>
             </header>
             <h1 data-testid="balance-income">{creditTransactions}</h1>
             <img src={credit} alt="Income" />
           </Card>
           <Card outcome onClick={() => handleTransactionChange('debit')}>
             <header>
-              <p>Saídas</p>
+              <p>Débito</p>
             </header>
             <h1 data-testid="balance-outcome">{debitTransactions}</h1>
             <img src={debit} alt="Outcome" />
