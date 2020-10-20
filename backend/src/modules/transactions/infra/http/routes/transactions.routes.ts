@@ -61,10 +61,11 @@ transactionsRouter.get(
 );
 
 transactionsRouter.get(
-  '/:user_id/transactions-type',
+  '/:user_id/:type',
   celebrate({
     [Segments.PARAMS]: {
       user_id: Joi.string().id().required(),
+      type: Joi.string().required(),
     },
   }),
   transactionsTypeController.index,

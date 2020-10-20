@@ -5,12 +5,11 @@ import GetTransactionsByType from '@modules/transactions/services/GetTransaction
 
 export default class TransactionsTypeController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { user_id } = request.params;
-    const { type } = request.query;
+    const { user_id, type } = request.params;
 
     const getTransactionsByType = container.resolve(GetTransactionsByType);
 
-    const transactions = await getTransactionsByType.execute(user_id, type[0]);
+    const transactions = await getTransactionsByType.execute(user_id, type);
 
     return response.json(transactions);
   }
