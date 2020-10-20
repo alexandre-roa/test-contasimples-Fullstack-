@@ -85,6 +85,16 @@ const AsideMenu: React.FC = () => {
         </span>
       </Header>
       <Balance>
+        <h3>
+          Olá,{' '}
+          <strong style={{ color: '#000', fontWeight: 'bold' }}>
+            {acountData.user}
+          </strong>
+        </h3>
+        <h3 style={{ color: '#0dc949' }}>
+          <strong>{acountData.company}</strong>
+        </h3>
+        <br />
         <h3>Saldo da conta</h3>
         <div>
           <h1>
@@ -100,22 +110,7 @@ const AsideMenu: React.FC = () => {
       </Balance>
       <Menu>
         <MenuOptions name="Início" to="/" icon={FiHome} />
-        <MenuOptions name="Depositar" to="/" icon={FiDollarSign} />
-        <MenuOptions name="Extrato da conta" to="/" icon={FiFileText} />
         <MenuOptions name="Cartões" to="/" icon={FiCreditCard} />
-        <MenuOptions name="Emitir cobrança" to="/" icon={FiCheckSquare} />
-        <MenuOptions name="Gestão de cobrança" to="/" icon={FiBarChart2} />
-        <MenuOptions name="Transferência" to="/" icon={FiMaximize2} />
-        <MenuOptions name="Pagamentos" to="/" icon={FiAlignCenter} />
-      </Menu>
-
-      <Menu>
-        <MenuOptions name="Usuários" to="/" icon={FiUsers} />
-        <MenuOptions name="Agendamentos" to="/" icon={FiCalendar} />
-        <MenuOptions name="Comprovantes" to="/" icon={FiClipboard} />
-        <MenuOptions name="Tarifas" to="/" icon={FiList} />
-        <MenuOptions name="Fale conosco" to="/" icon={FiPhone} />
-        <MenuOptions name="Benefícios" to="/" icon={FiTag} />
       </Menu>
     </Container>
   );

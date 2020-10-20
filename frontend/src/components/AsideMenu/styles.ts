@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   background: #f5f5f5;
-  width: 20vw;
+  width: 18vw;
   padding: 32px;
-  height: 100vh;
 `;
 
 export const Header = styled.header`
