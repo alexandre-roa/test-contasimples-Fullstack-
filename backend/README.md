@@ -1,69 +1,419 @@
-# Recuperação de senha
+# Backend - API
 
-**RF(Requisitos funcionais)**
+Todo backendo foi desenvolvido com typescript com typeORM, para desenvolvimento foi utilizado o docker e o banco de dados escolhido foi o mongodb
 
-- O usuário deve recuperar sua senha informando o seu e-mail;
-- O usuário deve receber um e-mail com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+## RF(Requisitos funcionais)\*\*
 
-**RNF(Requisitos não funcionais)**
+- O usuário deve poder listar todassuas transações e filtrar por data, tipo de transação, numero do cartão e última transação realizada;
 
-- Utilizar Mailtrap para testar envios em ambiente de dev;
-- Utilizar o Amazon SES para envios em produção;
-- O envio de e-mails deve acontecer em segundo plano (background job);
+## Rotas e endpoints:
 
-**RN(Regras de negócio)**
+A url padrão da aplicação é:
 
-- O link enviado por e-mail para resetar senha, deve expirar em 2h;
-- O usuário precisa confirmar a nova senha ao resetar sua senha;
+```sh
+http://localhost:3333
+```
 
-# Atualização de perfil
+Vou dar o nome a essa url de <strong>baseUrl</strong>
+<br></br>
 
-**RF(Requisitos funcionais)**
+## Rotas de usuário:
 
-- O usuário deve poder atualizar o seu perfil, nome, email e senha;
+<br></br>
+Criar usuário:
 
-**RN(Regras de negócio)**
+```sh
+METHOD: POST => baseUrl/users
 
-- O usuário não pode alterar seu email para um email já utilizado;
-- Para atualizar sua senha, o usuário deve infromar a senha antiga;
-- Para atualizar sua senha, o usuário deve confirmar a nova senha;
+request body: {
+	"full_name": string,
+	"company_name": string,
+	"cnpj": number,
+	"password": string,
+	"email": string
+}
 
-# Painel do prestador
+response body: {
+  "full_name": string,
+  "company_name": string,
+  "cnpj": number,
+  "email": string,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  "id": ObjectId,
+  "bank_data": {
+    "bank_code": number,
+    "bank_name": string,
+    "bank_agency_number": number,
+    "account_number": string,
+    "digit_account_number": number
+  }
+}
 
-**RF(Requisitos funcionais)**
+```
 
-- O usuário deve poder listar seus agendamentos de um dia específico;
-- O prestador deve receber uma notificação sempre que houver um novo agendamento;
-- O prestador deve poder visualizar as notificações não lidas;
+<br></br>
+Autenticação:
 
-**RNF(Requisitos não funcionais)**
+```sh
+METHOD: POST => baseUrl/sessions
 
-- Os agendamentos do prestador no dia devem ser armazenados em cache;
-- As notificações do prestador devem ser armazenadas no MongoDB;
-- As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
+request body: {
+	"full_name": string,
+	"company_name": string,
+	"cnpj": number,
+	"password": string,
+	"email": string
+}
 
-**RN(Regras de negócio)**
+response body: {
+  "user": {
+  "id": ObjectId,
+  "full_name": string,
+  "company_name": string,
+  "cnpj": number,
+  "email": string,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  },
+  "token": JWT_token
+}
 
-- A notificação deve ter um status de lida ou não-lida para que o prestador possa controlar;
+```
 
-# Agendamento de serviço
+<br></br>
+Saldo da conta:
 
-**RF(Requisitos funcionais)**
+```sh
+METHOD: GET => baseUrl/users/balance/{user_id}
+[auth: Bearer token]
 
-- O usuário deve poder listar todos os prestadores de serviço;
-- O usuário deve poder listar os dias do mês com pelo menos um horário disponível de um prestador;
-- O usuário deve porder listar horários disponíveis em um dia específico de um prestador;
-- O usuário deve poder realizar um novo agendamento com um prestador;
+request body: {
+	no body
+}
 
-**RNF(Requisitos não funcionais)**
+response body: {
+  "user_id": ObjectId,
+  "user": string,
+  "company": string,
+  "cnpj": number,
+  "balance": number
+}
+```
 
-- A listagem de prestadores deve ser armazenada em cache;
+<br></br>
 
-**RN(Regras de negócio)**
+## Rotas de transação:
 
-- Cada agendamento deve durar 1h exatamente;
-- Os agendamentos devem estar dispóníveis entre 8h as 18h (Primeiro as 8h, último as 17h)
-- O usuário não pode agendar em um horário já ocupado;
-- O usuário não pode agendar em um horário que já passou;
-- O usuário não pode agendar serviços consigo mesmo;
+<br></br>
+Criar transação:
+
+```sh
+METHOD: POST => baseUrl/transactions/create/{user_id}
+[auth: Bearer token]
+
+request body: {
+	"title": string,
+	"establishment": string,
+	"value": number,
+	"final_card": number,
+	"transaction_date": date,
+	"transaction_description": string,
+	"transaction_type": string,
+}
+
+response body: {
+  "title": string,
+  "value": number,
+  "type": string,
+  "user_id": ObjectId,
+  "final_card": number,
+  "transaction_type": string,
+  "transaction_description": string,
+  "establishment": string,
+  "transaction_date": date,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  "id": ObjectId
+}
+```
+
+<br></br>
+Listar todas transações:
+
+```sh
+METHOD: GET => baseUrl/transactions/{user_id}
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: [
+  {
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  },
+]
+```
+
+<br></br>
+Listar transações por data:
+
+```sh
+METHOD: GET => baseUrl/transactions/{user_id}/day-transactions?{query_params}
+
+[auth: Bearer token]
+[query_params: {
+  day,
+  month,
+  year,
+}]
+
+request body: {
+	no body
+}
+
+response body: [
+  {
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  },
+]
+```
+
+<br></br>
+Listar transações por tipo:
+
+```sh
+METHOD: GET => baseUrl/transactions/{user_id}/{tipo_da_transação}
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: [
+  {
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  },
+]
+```
+
+<br></br>
+Listar transações por numero de cartão:
+
+```sh
+METHOD: GET => baseUrl/transactions/{user_id}/bycard/{final_card_number}
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: [
+  {
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  },
+]
+```
+
+<br></br>
+Listar a última transação:
+
+```sh
+METHOD: GET => baseUrl/transactions/{user_id}/last-transaction/me
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: {
+
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  },
+
+```
+
+## Rotas de cartões
+
+<br></br>
+Criar cartão:
+
+```sh
+METHOD: POST => baseUrl/CARDS/{user_id}
+
+request body: {
+	"label_name": string,
+   "card_limit": number,
+   "card_number": number,
+   "final_card_number": number,
+   "due_date": date,
+   "status": string,
+   "cvv": number
+}
+
+response body: {
+  "label_name": string,
+  "card_limit": number,
+  "card_number": number,
+  "final_card_number": number,
+  "due_date": date,
+  "status": string,
+  "cvv": number,
+  "user_id": ObjectId,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  "id": ObjectId
+}
+
+```
+
+<br></br>
+Listar todos os cartões:
+
+```sh
+METHOD: GET => baseUrl/cards/{user_id}
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: [{
+  "label_name": string,
+  "card_limit": number,
+  "card_number": number,
+  "final_card_number": number,
+  "due_date": date,
+  "status": string,
+  "cvv": number,
+  "user_id": ObjectId,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  "id": ObjectId
+  "transactions": [{
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  }]
+}]
+
+```
+
+<br></br>
+Listar um cartão:
+
+```sh
+METHOD: GET => baseUrl/cards/{user_id}/{card_number}
+
+[auth: Bearer token]
+
+request body: {
+	no body
+}
+
+response body: {
+  "label_name": string,
+  "card_limit": number,
+  "card_number": number,
+  "final_card_number": number,
+  "due_date": date,
+  "status": string,
+  "cvv": number,
+  "user_id": ObjectId,
+  "created_at": date_generate_column,
+  "updated_at": date_generate_column,
+  "id": ObjectId
+  "transactions": [{
+    "id": ObjectId,
+    "title": string,
+    "value": number,
+    "type": string,
+    "user_id": ObjectId,
+    "card_id": ObjectId,
+    "final_card": number,
+    "transaction_type": string,
+    "transaction_description": string,
+    "establishment": string,
+    "transaction_date": date,
+    "created_at": date_generate_column,
+    "updated_at": date_generate_column
+  }]
+}
+
+```

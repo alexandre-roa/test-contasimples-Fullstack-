@@ -12,7 +12,7 @@ Para rodar a aplicação é necessário seguir alguns passos:
 git clone https://github.com/alexandre-roa/test-contasimples-Fullstack-.git
 ```
 
-2 - Após isso, acessar a pasta do repositório de rodar o backend;
+2 - Após isso, acessar a pasta do repositório e rodar o backend;
 
 ```sh
 cd test-contasimples-Fullstack-/backend
