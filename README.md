@@ -12,7 +12,7 @@ Para rodar a aplicação é necessário seguir alguns passos:
 git clone https://github.com/alexandre-roa/test-contasimples-Fullstack-.git
 ```
 
-2 - Após isso acessar a pasta do repositório de rodar o backend;
+2 - Após isso, acessar a pasta do repositório de rodar o backend;
 
 ```sh
 cd test-contasimples-Fullstack-/backend
@@ -38,7 +38,7 @@ yarn dev:server
 
 Para rodar a aplicação no frontend basta acessar o link a seguir ou rodar a aplicação direto da sua máquina
 
-[Acessar aplicação Frontend](https://github.com/alexandre-roa/GoBarber-web)
+[Acessar aplicação Frontend](https://conta-simples-code-test.vercel.app/)
 
 1 - Para rodar a aplicação localmente, basta acessar a pasta <strong>frontend</strong> desse repositório e rodar os seguintes comandos:
 
@@ -51,8 +51,12 @@ yarn start
 ```
 O primeiro comando se refere a instalação das dependências e o segundo serve para rodar a aplicação.
 
-## Para ver os detalhes basta acessar os links
+## Testes da aplicação
 
-## [Backend - API](https://github.com/alexandre-roa/test-contasimples-Fullstack-/tree/master/backend)
+Foi realizado testes no backend TDD utilizando jest, porém não foi realizado uma cobertura completa, pelo fato de ter me focado em apresentar todas as features.
 
-## [Frontend - Screenshots](https://github.com/alexandre-roa/test-contasimples-Fullstack-/tree/master/frontend)
+## Para ver os detalhes de cada desafio, basta acessar os links
+
+[Backend - API](https://github.com/alexandre-roa/test-contasimples-Fullstack-/tree/master/backend)
+
+[Frontend](https://github.com/alexandre-roa/test-contasimples-Fullstack-/tree/master/frontend)
