@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
-interface CardProps {
+interface ICardProps {
   outcome?: boolean;
-  total?: boolean;
+  last?: boolean;
 }
 
 export const Container = styled.div`
@@ -35,17 +35,17 @@ export const Card = styled.button`
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  background: ${({ total }: CardProps): string => (total ? '#0dc949' : '#fff')};
+  background: ${({ last }: ICardProps): string => (last ? '#0dc949' : '#fff')};
   padding: 22px 32px;
   border-radius: 5px;
-  border: ${({ outcome }: CardProps): string =>
+  border: ${({ outcome }: ICardProps): string =>
     outcome ? '1px solid #e83f5b' : '1px solid #0dc949'};
-  color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
+  color: ${({ last }: ICardProps): string => (last ? '#fff' : '#363F5F')};
   margin-right: 24px;
   transition: 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: ${({ outcome }: CardProps): string =>
+    box-shadow: ${({ outcome }: ICardProps): string =>
       outcome
         ? '0px 8px 24px 0px rgba(232,63,91,0.5)'
         : '0px 8px 24px 0px rgba(13, 201, 73, 0.5)'};

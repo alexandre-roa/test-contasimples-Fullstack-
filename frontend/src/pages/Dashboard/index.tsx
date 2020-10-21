@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 
 import formatValue from '../../utils/formatValue';
+import generateData from '../../utils/generateData';
 import { useAuth } from '../../hooks/auth';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import AsideMenu from '../../components/AsideMenu';
+import Button from '../../components/Button';
 
 import credit from '../../assets/credit.svg';
 import debit from '../../assets/debit.svg';
@@ -53,6 +56,8 @@ const Dashboard: React.FC = () => {
   );
   const [bankData, setBankData] = useState<IBankData>({} as IBankData);
 
+  const history = useHistory();
+
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
       try {
@@ -97,6 +102,10 @@ const Dashboard: React.FC = () => {
 
   useMemo(async () => {
     const debit = await api.get(`transactions/${user.id}/debit`);
+
+    if (debit.data.length === 0) {
+      return formatValue(0);
+    }
 
     const debitValues = debit.data.map(
       (transaction: ITransaction) => transaction.value,
@@ -144,6 +153,10 @@ const Dashboard: React.FC = () => {
     [transactions],
   );
 
+  const handleGenerateData = useCallback(() => {
+    generateData(user.id, api);
+  }, []);
+
   return (
     <Container>
       <AsideMenu />
@@ -164,7 +177,7 @@ const Dashboard: React.FC = () => {
             <img src={debit} alt="Outcome" />
           </Card>
 
-          <Card total>
+          <Card last>
             <header>
               <p>Ultima transacao:</p>
               <h2>{lastTransaction.title}</h2>
@@ -178,6 +191,10 @@ const Dashboard: React.FC = () => {
             />
           </Card>
         </CardContainer>
+
+        {transactions.length === 0 && (
+          <Button onClick={() => handleGenerateData()}>Gerar Dados</Button>
+        )}
 
         <TableContainer>
           <table>
