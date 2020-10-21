@@ -4,6 +4,7 @@ import { shade } from 'polished';
 interface ICardProps {
   outcome?: boolean;
   last?: boolean;
+  loading?: boolean;
 }
 
 export const Container = styled.div`

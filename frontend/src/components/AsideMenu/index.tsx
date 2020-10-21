@@ -11,6 +11,7 @@ import { Container, Header, Balance, Menu } from './styles';
 import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+import Button from '../Button';
 
 interface IBalanceProps {
   user_id: string;
@@ -35,8 +36,9 @@ interface ITransaction {
 }
 
 const AsideMenu: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [isAvailable, setIsAvailable] = useState(false);
+  const [selected, setSelected] = useState(false);
   const [acountData, setAcountData] = useState<IBalanceProps>(
     {} as IBalanceProps,
   );
@@ -96,6 +98,7 @@ const AsideMenu: React.FC = () => {
       <Menu>
         <MenuOptions name="Início" to="/" icon={FiHome} />
         <MenuOptions name="Cartões" to="/credit-card" icon={FiCreditCard} />
+        <Button onClick={signOut}> Sair </Button>
       </Menu>
     </Container>
   );
