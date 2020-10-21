@@ -76,7 +76,7 @@ Ou se prefererir pode realizar um cadastro você mesmo utilizando o link de cria
 </div>
 
 <br></br>
-Após realizar o login, você será redirecionado a pagina da dashboard, na qual terá um botão <strong>Gerar dados</strong>, clicando nesse link automaticamente a pagina irá carregar com os dados para utilizar a aplicação:
+Após realizar o login, você será redirecionado a pagina da dashboard, na qual terá um botão <strong>Gerar dados</strong>, clicando nesse link automaticamente a pagina irá carregar com os dados para utilizar a aplicação, pode demorar um pouco para carregar. Não precisa clicar mais de uma vez no botão e não precisa atualizar a página, tudo será feito automaticamente:
 <br></br>
 
 <div align="center" >
