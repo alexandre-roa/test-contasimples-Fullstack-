@@ -10,7 +10,6 @@ import Button from '../../components/Button';
 
 import credit from '../../assets/credit.svg';
 import debit from '../../assets/debit.svg';
-import total from '../../assets/total.svg';
 
 import {
   Container,
@@ -46,6 +45,8 @@ interface IBankData {
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+
+  const [loading, setLoading] = useState(false);
   const [transactions, setTransactions] = useState<ITransaction[]>([
     {} as ITransaction,
   ]);
@@ -155,6 +156,7 @@ const Dashboard: React.FC = () => {
 
   const handleGenerateData = useCallback(() => {
     generateData(user.id, api);
+    setLoading(true);
   }, []);
 
   return (
@@ -193,7 +195,9 @@ const Dashboard: React.FC = () => {
         </CardContainer>
 
         {transactions.length === 0 && (
-          <Button onClick={() => handleGenerateData()}>Gerar Dados</Button>
+          <Button loading={loading} onClick={() => handleGenerateData()}>
+            Gerar Dados
+          </Button>
         )}
 
         <TableContainer>
