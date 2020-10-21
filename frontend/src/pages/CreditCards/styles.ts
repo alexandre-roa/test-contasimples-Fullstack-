@@ -13,6 +13,8 @@ export const Content = styled.div`
 
 export const CreditCardContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
 `;
 
 export const TableContainer = styled.section`

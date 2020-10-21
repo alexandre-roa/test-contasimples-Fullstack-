@@ -4,6 +4,7 @@ export const Container = styled.button`
   position: relative;
   display: flex;
   margin-right: 24px;
+  margin-top: 8px;
   flex-direction: column;
   justify-content: flex-start;
   background: #383838;
