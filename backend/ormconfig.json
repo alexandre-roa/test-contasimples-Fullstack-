@@ -1,9 +1,10 @@
 {
   "name": "default",
   "type": "mongodb",
-  "host": "localhost",
-  "port": 27017,
-  "database": "contaSimples",
+  "url": "mongodb+srv://alexandre-roa:m4TYZ4dOBcwi6tOB@clustertests.nrfx9.mongodb.net/contaSimples",
+  "useNewUrlParser": true,
+  "synchronize": true,
+  "logging": true,
   "useUnifiedTopology": true,
   "entities": ["./src/modules/**/infra/typeorm/schemas/*.ts"]
 }
